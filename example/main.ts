@@ -10,7 +10,6 @@ const mainUrl = url.format({
 
 ipcMain.on('window-action', ({ sender }, { action }) => {
   const win = BrowserWindow.fromId(sender.id);
-
   switch (action) {
     case 'minimize':
       win?.minimize();
@@ -25,7 +24,7 @@ ipcMain.on('window-action', ({ sender }, { action }) => {
       win?.close();
       break;
   }
-})
+});
 
 app.on('ready', async () => {
   const windowManager = new WindowManager();
