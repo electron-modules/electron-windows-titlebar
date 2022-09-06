@@ -19,7 +19,16 @@
 [download-image]: https://img.shields.io/npm/dm/electron-windows-titlebar.svg
 [download-url]: https://npmjs.org/package/electron-windows-titlebar
 
-![](./demo.gif)
+> windows-style title bar component for Electron
+
+## Demo
+
+<p align="center">
+  <img
+    src="./demo.gif"
+    width="480"
+  />
+</p>
 
 <!-- GITCONTRIBUTOR_START -->
 

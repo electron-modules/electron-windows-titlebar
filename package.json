@@ -1,7 +1,7 @@
 {
   "name": "electron-windows-titlebar",
   "version": "0.1.6",
-  "description": "Electron custom title bar for windows.",
+  "description": "windows-style title bar component for Electron",
   "scripts": {
     "dev": "concurrently npm:dev:*",
     "dev:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./example/main.ts",
