@@ -3,3 +3,4 @@ node_modules
 coverage
 *.sw*
 *.un~
+lib

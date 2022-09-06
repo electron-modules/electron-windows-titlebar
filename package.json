@@ -1,25 +1,29 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "0.0.1",
+  "version": "0.1.5",
   "description": "Electron custom title bar for windows.",
   "scripts": {
     "dev": "concurrently npm:dev:*",
     "dev:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./example/main.ts",
     "dev:web": "cross-env NODE_ENV=development webpack-dev-server",
+    "build": "tsc && copyup 'src/**/*.less' lib/",
     "test": "jest",
-    "lint": "eslint --fix --quiet --ext .js,.jsx,.ts,.tsx ./src",
+    "lint": "eslint --fix --quiet --ext .js,.jsx,.ts,.tsx src example",
     "prepublishOnly": "npm run build",
     "contributor": "git-contributor"
   },
   "keywords": [
     "electron",
     "windows",
-    "title-bar"
+    "titlebar"
   ],
   "files": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.less"
+    "src/**/*.less",
+    "lib/**/*.ts",
+    "lib/**/*.js",
+    "lib/**/*.less"
   ],
   "repository": {
     "type": "git",
@@ -39,7 +43,7 @@
     "css-loader": "^0.28.8",
     "electron": "18",
     "electron-windows": "18",
-    "eslint": "^7.32.0",
+    "eslint": "7",
     "git-contributor": "*",
     "husky": "^7.0.4",
     "jest": "^26.6.3",
