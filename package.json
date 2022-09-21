@@ -41,6 +41,7 @@
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "css-loader": "^0.28.8",
+    "detect-port": "1",
     "electron": "18",
     "electron-windows": "18",
     "eslint": "7",

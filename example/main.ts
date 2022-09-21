@@ -2,6 +2,7 @@ import url from 'url';
 import path from 'path';
 import WindowManager from 'electron-windows';
 import { app, ipcMain, BrowserWindow } from 'electron';
+import { waitPort } from 'detect-port';
 
 const mainUrl = url.format({
   pathname: path.join(__dirname, 'renderer', 'index.html'),
@@ -27,6 +28,8 @@ ipcMain.on('window-action', ({ sender }, { action }) => {
 });
 
 app.on('ready', async () => {
+  await waitPort(8080);
+
   const windowManager = new WindowManager();
   const win = windowManager.create({
     name: 'main',
