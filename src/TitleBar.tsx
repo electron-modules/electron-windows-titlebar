@@ -38,15 +38,14 @@ const TitleBar = (props: TitleBarProps) => {
   const iconItemStyle = getIconItemStyle();
   const [isMaximized, setIsMaximized] = useState(false);
 
-  useEffect(() => {
+  const toggleMaximize = () => {
     if (isMaximized) {
-      onMaximize();
-    } else {
       onUnMaximize();
+    } else {
+      onMaximize();
     }
-  }, [
-    isMaximized,
-  ]);
+    setIsMaximized(!isMaximized);
+  };
 
   return (
     <div
@@ -73,7 +72,7 @@ const TitleBar = (props: TitleBarProps) => {
         <div
           className={styles.buttonItem}
           style={iconItemStyle}
-          onClick={() => setIsMaximized(!isMaximized)}
+          onClick={() => toggleMaximize()}
         >
           {isMaximized ? Icons.restore : Icons.maximize}
         </div>
