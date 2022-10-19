@@ -59,7 +59,9 @@ const TitleBar = (props: TitleBarProps) => {
         backgroundColor: titleBarColor,
       }}
     >
-      {titleText}
+      <div className={styles.draggaleArea}>
+        {titleText}
+      </div>
       <div className={styles.buttons} style={{ fill: iconColor }}>
         <div
           className={styles.buttonItem}
