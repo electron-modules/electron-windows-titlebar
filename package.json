@@ -1,6 +1,6 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "windows-style title bar component for Electron",
   "scripts": {
     "dev": "concurrently npm:dev:*",
