@@ -6,7 +6,10 @@
     "dev": "concurrently npm:dev:*",
     "dev:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./example/main.ts",
     "dev:web": "cross-env NODE_ENV=development webpack-dev-server",
-    "build": "tsc && copyup 'src/**/*.less' lib/",
+    "build:web": "tsc && copyup 'src/**/*.less' lib/",
+    "build:debug": "node-gyp configure && node-gyp build --debug",
+    "build:release": "node-gyp configure && node-gyp build",
+    "clean": "node-gyp clean",
     "test": "jest",
     "lint": "eslint --fix --quiet --ext .js,.jsx,.ts,.tsx src example",
     "prepublishOnly": "npm run build",
@@ -28,6 +31,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/electron-modules/electron-windows-titlebar"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^3.0.0"
   },
   "devDependencies": {
     "@applint/spec": "^1.2.0",
