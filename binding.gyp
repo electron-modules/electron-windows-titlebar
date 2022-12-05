@@ -3,7 +3,7 @@
     {
       "target_name": "electron-windows-titlebar",
       "sources": [
-        "./src/main.cpp"
+        "./src/cpp/main.cpp"
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
@@ -23,8 +23,10 @@
         }
       },
       "defines": [
+        "NAPI_DISABLE_CPP_EXCEPTIONS",
         "_HAS_EXCEPTIONS=1"
-      ]
+      ],
+      "libraries": [],
     }
   ]
 }

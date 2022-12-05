@@ -4,3 +4,10 @@ coverage
 *.sw*
 *.un~
 lib
+.vscode
+build/Release/*
+build/binding.sln
+build/config.gypi
+build/electron-windows-titlebar.vcxproj
+build/electron-windows-titlebar.vcxproj.filters
+!build/Release/electron-windows-titlebar.node

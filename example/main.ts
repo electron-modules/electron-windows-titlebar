@@ -3,9 +3,15 @@ import path from 'path';
 import WindowManager from 'electron-windows';
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { waitPort } from 'detect-port';
+import winTitlebar from '../build/Release/electron-windows-titlebar.node';
 
 const mainUrl = url.format({
   pathname: path.join(__dirname, 'renderer', 'index.html'),
+  protocol: 'file:',
+});
+
+const addonDemoUrl = url.format({
+  pathname: path.join(__dirname, 'renderer', 'addon-demo', 'index.html'),
   protocol: 'file:',
 });
 
@@ -25,6 +31,18 @@ ipcMain.on('window-action', ({ sender }, { action }) => {
       win?.close();
       break;
   }
+});
+
+ipcMain.handle('get-window-hwnd', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  return hwnd;
+});
+
+ipcMain.on('change-dark-theme', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  winTitlebar.changeTitlebar(hwnd);
 });
 
 app.on('ready', async () => {
@@ -51,4 +69,18 @@ app.on('ready', async () => {
   win.once('ready-to-show', () => {
     win.show();
   });
+
+  const addonWin = windowManager.create({
+    name: 'addon',
+    browserWindow: {
+      width: 1280,
+      height: 800,
+      title: 'addon demo',
+      webPreferences: {
+        preload: path.join(__dirname, 'renderer', 'preload.js'),
+      },
+    },
+  });
+
+  addonWin.loadURL(addonDemoUrl);
 });
