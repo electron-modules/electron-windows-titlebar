@@ -48,29 +48,29 @@ ipcMain.on('change-dark-theme', ({ sender }) => {
 });
 
 app.on('ready', async () => {
-  await waitPort(8080);
+  // await waitPort(8080);
 
   const windowManager = new WindowManager();
-  const win = windowManager.create({
-    name: 'main',
-    browserWindow: {
-      titleBarStyle: 'hidden',
-      width: 1280,
-      height: 800,
-      title: 'electrom',
-      show: false,
-      acceptFirstMouse: true,
-      webPreferences: {
-        preload: path.join(__dirname, 'renderer', 'preload.js'),
-      },
-    },
-  });
+  // const win = windowManager.create({
+  //   name: 'main',
+  //   browserWindow: {
+  //     titleBarStyle: 'hidden',
+  //     width: 1280,
+  //     height: 800,
+  //     title: 'electrom',
+  //     show: false,
+  //     acceptFirstMouse: true,
+  //     webPreferences: {
+  //       preload: path.join(__dirname, 'renderer', 'preload.js'),
+  //     },
+  //   },
+  // });
 
-  win.loadURL(mainUrl);
-  win.webContents.openDevTools({ mode: 'detach' });
-  win.once('ready-to-show', () => {
-    win.show();
-  });
+  // win.loadURL(mainUrl);
+  // win.webContents.openDevTools({ mode: 'detach' });
+  // win.once('ready-to-show', () => {
+  //   win.show();
+  // });
 
   const addonWin = windowManager.create({
     name: 'addon',
