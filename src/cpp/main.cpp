@@ -9,10 +9,17 @@ static void changeTheme(Napi::Buffer<void *> wndHandle) {
   HWND hwnd = static_cast<HWND>(*reinterpret_cast<void **>(wndHandle.Data()));
   BOOL USE_DARK_MODE = true;
   const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+  const int DWMWA_USE_IMMERSIVE_DARK_MODE_OLD_VERSION = 19;
   // TODO: 判断Windows版本号以传不同参数，win11是20，win 10部分版本是19
   DwmSetWindowAttribute(
     hwnd,
     DWMWA_USE_IMMERSIVE_DARK_MODE,
+    &USE_DARK_MODE,
+    sizeof(USE_DARK_MODE)
+  );
+  DwmSetWindowAttribute(
+    hwnd,
+    DWMWA_USE_IMMERSIVE_DARK_MODE_OLD_VERSION,
     &USE_DARK_MODE,
     sizeof(USE_DARK_MODE)
   );
