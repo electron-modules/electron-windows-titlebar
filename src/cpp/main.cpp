@@ -21,7 +21,7 @@ static void changeTheme(Napi::Buffer<void *> wndHandle) {
 void ChangeThemeWrapped(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
   if (info.Length() < 1 || !info[0].IsBuffer()) {
-    Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
+    Napi::TypeError::New(env, "Buffer expected").ThrowAsJavaScriptException();
   }
   changeTheme(info[0].As<Napi::Buffer<void*>>());
 }
