@@ -66,11 +66,11 @@ app.on('ready', async () => {
     },
   });
 
-  win.loadURL(mainUrl);
-  win.webContents.openDevTools({ mode: 'detach' });
-  win.once('ready-to-show', () => {
-    // win.show();
-  });
+  // win.loadURL(mainUrl);
+  // win.webContents.openDevTools({ mode: 'detach' });
+  // win.once('ready-to-show', () => {
+  //   win.show();
+  // });
 
   const addonWin = windowManager.create({
     name: 'addon',
@@ -85,4 +85,8 @@ app.on('ready', async () => {
   });
 
   addonWin.loadURL(addonDemoUrl);
+  addonWin.webContents.openDevTools({ mode: 'detach' });
+  addonWin.once('ready-to-show', () => {
+    addonWin.show();
+  });
 });
