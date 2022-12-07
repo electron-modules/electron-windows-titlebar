@@ -55,7 +55,7 @@ const windowTitleBar = require('electron-windows-titlebar');
 const win = BrowserWindow.fromId(sender.id);
 const hwnd = win?.getNativeWindowHandle();
 if (hwnd) {
-  windowTitleBar.changeTheme(hwnd);
+  windowTitleBar.switchDarkMode(hwnd);
 }
 ```
 
