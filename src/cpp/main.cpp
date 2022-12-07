@@ -3,6 +3,10 @@
 
 #pragma comment (lib, "dwmapi.lib")
 
+/**
+ * Windows 11 insider build number: 10.0.22000.194
+ * ref: https://chromium.googlesource.com/chromium/src/+/master/base/win/windows_version.h#58
+*/
 static BOOL isWindows11OrLater() {
   OSVERSIONINFO info;
   info.dwOSVersionInfoSize = sizeof(info);
@@ -17,11 +21,7 @@ static BOOL isWindows11OrLater() {
 }
 
 static void changeTheme(Napi::Buffer<void *> wndHandle, bool isDark) {
-  /**
-   * step 1, get windows build version
-   * Windows 11 insider build number: 10.0.22000.194
-   * ref: https://chromium.googlesource.com/chromium/src/+/master/base/win/windows_version.h#58
-  */
+  // step 1, get windows build version
   const int DWMWA_USE_IMMERSIVE_DARK_MODE = isWindows11OrLater() ? 20 : 19;
   // step 2, set window attribute to dark mode
   HWND hwnd = static_cast<HWND>(*reinterpret_cast<void **>(wndHandle.Data()));
