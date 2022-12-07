@@ -20,7 +20,7 @@
   "keywords": [
     "electron",
     "windows",
-    "titlebar"
+    "title-bar"
   ],
   "files": [
     "src/**/*.ts",

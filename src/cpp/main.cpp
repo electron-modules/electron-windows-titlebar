@@ -1,16 +1,15 @@
-/* src/cpp/main.cpp */
-#pragma comment (lib, "dwmapi.lib")
 #include <napi.h>
 #include <dwmapi.h>
 
-// TODO: 增加判断当前窗口主题函数 
+#pragma comment (lib, "dwmapi.lib")
 
 static void changeTheme(Napi::Buffer<void *> wndHandle) {
-  HWND hwnd = static_cast<HWND>(*reinterpret_cast<void **>(wndHandle.Data()));
-  BOOL USE_DARK_MODE = true;
+  // step 1, get windows build version
   const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
   const int DWMWA_USE_IMMERSIVE_DARK_MODE_OLD_VERSION = 19;
-  // TODO: 判断Windows版本号以传不同参数，win11是20，win 10部分版本是19
+  // step 2, set window attribute to dark mode
+  HWND hwnd = static_cast<HWND>(*reinterpret_cast<void **>(wndHandle.Data()));
+  BOOL USE_DARK_MODE = true;
   DwmSetWindowAttribute(
     hwnd,
     DWMWA_USE_IMMERSIVE_DARK_MODE,
@@ -23,6 +22,10 @@ static void changeTheme(Napi::Buffer<void *> wndHandle) {
     &USE_DARK_MODE,
     sizeof(USE_DARK_MODE)
   );
+  // step 3, update window size to redraw the current window
+  RECT rect;
+  GetWindowRect(hwnd, &rect);
+  SetWindowPos(hwnd, 0, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top + 1, SWP_DRAWFRAME|SWP_NOACTIVATE|SWP_NOZORDER);
 }
 
 void ChangeThemeWrapped(const Napi::CallbackInfo& info) {
@@ -38,4 +41,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   return exports;
 }
 
-NODE_API_MODULE(titlebar, Init)
+NODE_API_MODULE(titlebar, Init);
