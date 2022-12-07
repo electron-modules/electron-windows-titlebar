@@ -4,14 +4,16 @@
 #pragma comment (lib, "dwmapi.lib")
 
 static BOOL isWindows11OrLater() {
-  static BOOL res = false;
   OSVERSIONINFO info;
   info.dwOSVersionInfoSize = sizeof(info);
-  if ((info.dwMajorVersion == 10 && info.dwBuildNumber >= 22000) || info.dwMajorVersion > 10) {
-    res = true;
-  }
   GetVersionEx(&info);
-  return res;
+
+  if (info.dwMajorVersion > 10) {
+    return true;
+  } else if (info.dwMajorVersion == 10) {
+    return info.dwBuildNumber >= 22000;
+  }
+  return false;
 }
 
 static void changeTheme(Napi::Buffer<void *> wndHandle, bool isDark) {
