@@ -3,7 +3,7 @@ import path from 'path';
 import WindowManager from 'electron-windows';
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { waitPort } from 'detect-port';
-import winTitlebar from './../build/Release/electron-windows-titlebar.node';
+import winTitlebar from '..';
 
 const mainUrl = url.format({
   pathname: path.join(__dirname, 'renderer', 'index.html'),
