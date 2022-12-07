@@ -39,11 +39,19 @@ ipcMain.handle('get-window-hwnd', ({ sender }) => {
   return hwnd;
 });
 
-ipcMain.on('change-dark-theme', ({ sender }) => {
+ipcMain.on('switch-to-dark', ({ sender }) => {
   const win = BrowserWindow.fromId(sender.id);
   const hwnd = win?.getNativeWindowHandle();
   if (hwnd) {
-    winTitlebar.changeTheme(hwnd);
+    winTitlebar.switchToDark(hwnd);
+  }
+});
+
+ipcMain.on('switch-to-light', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  if (hwnd) {
+    winTitlebar.switchToLight(hwnd);
   }
 });
 

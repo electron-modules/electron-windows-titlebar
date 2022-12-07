@@ -14,10 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
     if (element) element.innerText = res;
   });
 
-  const btn = document.getElementById('change-theme');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      ipcRenderer.send('change-dark-theme');
-    });
-  }
+  document.getElementById('switch-to-dark').addEventListener('click', () => {
+    ipcRenderer.send('switch-to-dark');
+  });
+
+  document.getElementById('switch-to-light').addEventListener('click', () => {
+    ipcRenderer.send('switch-to-light');
+  });
 });
