@@ -30,6 +30,15 @@
   />
 </p>
 
+## Addon Demo
+
+<p align="center">
+  <img
+    src="./addon-demo.gif"
+    width="480"
+  />
+</p>
+
 <!-- GITCONTRIBUTOR_START -->
 
 ## Contributors
