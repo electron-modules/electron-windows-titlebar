@@ -3,14 +3,14 @@
 
 #pragma comment (lib, "dwmapi.lib")
 
-static bool isWindows11OrLater() {
+static BOOL isWindows11OrLater() {
   static BOOL res = false;
- 	OSVERSIONINFO ovi;
-	ovi.dwOSVersionInfoSize = sizeof(ovi);
-  if ((ovi.dwMajorVersion == 10 && ovi.dwBuildNumber >= 22000) || ovi.dwMajorVersion > 10) {
+  OSVERSIONINFO info;
+  info.dwOSVersionInfoSize = sizeof(info);
+  if ((info.dwMajorVersion == 10 && info.dwBuildNumber >= 22000) || info.dwMajorVersion > 10) {
     res = true;
   }
-	GetVersionEx(&ovi);
+  GetVersionEx(&info);
   return res;
 }
 
