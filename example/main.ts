@@ -39,19 +39,19 @@ ipcMain.handle('get-window-hwnd', ({ sender }) => {
   return hwnd;
 });
 
-ipcMain.on('switch-to-dark', ({ sender }) => {
+ipcMain.on('switch-dark-mode', ({ sender }) => {
   const win = BrowserWindow.fromId(sender.id);
   const hwnd = win?.getNativeWindowHandle();
   if (hwnd) {
-    winTitlebar.switchToDark(hwnd);
+    winTitlebar.switchDarkMode(hwnd);
   }
 });
 
-ipcMain.on('switch-to-light', ({ sender }) => {
+ipcMain.on('switch-light-mode', ({ sender }) => {
   const win = BrowserWindow.fromId(sender.id);
   const hwnd = win?.getNativeWindowHandle();
   if (hwnd) {
-    winTitlebar.switchToLight(hwnd);
+    winTitlebar.switchLightMode(hwnd);
   }
 });
 
