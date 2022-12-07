@@ -20,6 +20,10 @@ static BOOL isWindows11OrLater() {
   return false;
 }
 
+/**
+ * DWMWA_USE_IMMERSIVE_DARK_MODE = 20 is supported starting with Windows 11 Build 22000
+ * ref: https://learn.microsoft.com/en-us/windows/win32/api/dwmapi/ne-dwmapi-dwmwindowattribute
+*/
 static void changeTheme(Napi::Buffer<void *> wndHandle, bool isDark) {
   // step 1, get windows build version
   const int DWMWA_USE_IMMERSIVE_DARK_MODE = isWindows11OrLater() ? 20 : 19;
@@ -32,10 +36,9 @@ static void changeTheme(Napi::Buffer<void *> wndHandle, bool isDark) {
     &USE_DARK_MODE,
     sizeof(USE_DARK_MODE)
   );
-  // step 3, update window size to redraw the current window
-  RECT rect;
-  GetWindowRect(hwnd, &rect);
-  SetWindowPos(hwnd, 0, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top + 1, SWP_DRAWFRAME|SWP_NOACTIVATE|SWP_NOZORDER);
+  // step 3, redraw the current window
+  // ref: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
+  SetWindowPos(hwnd, 0, 0, 0, 0, 0, SWP_DRAWFRAME|SWP_NOACTIVATE|SWP_NOZORDER|SWP_NOMOVE|SWP_NOSIZE);
 }
 
 void switchLightMode(const Napi::CallbackInfo& info) {
