@@ -1,6 +1,6 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "windows-style title bar component for Electron",
   "gypfile": true,
   "scripts": {
@@ -11,10 +11,10 @@
     "build:debug": "node-gyp configure && node-gyp build --debug",
     "build:release": "node-gyp configure && node-gyp build",
     "build": "node-gyp rebuild",
+    "prepublishOnly": "npm run build",
     "clean": "node-gyp clean",
     "test": "jest",
     "lint": "eslint --fix --quiet --ext .js,.jsx,.ts,.tsx src example",
-    "prepublishOnly": "npm run build",
     "contributor": "git-contributor"
   },
   "keywords": [
@@ -23,6 +23,8 @@
     "title-bar"
   ],
   "files": [
+    "build/Release/*.node",
+    "src/**/*.cpp",
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.less",
