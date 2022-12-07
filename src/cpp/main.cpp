@@ -33,7 +33,7 @@ void switchLightMode(const Napi::CallbackInfo& info) {
   if (info.Length() < 1 || !info[0].IsBuffer()) {
     Napi::TypeError::New(env, "hwnd buffer expected").ThrowAsJavaScriptException();
   }
-  changeTheme(info[0].As<Napi::Buffer<void*>>(), true);
+  changeTheme(info[0].As<Napi::Buffer<void*>>(), false);
 }
 
 void switchDarkMode(const Napi::CallbackInfo& info) {
@@ -41,7 +41,7 @@ void switchDarkMode(const Napi::CallbackInfo& info) {
   if (info.Length() < 1 || !info[0].IsBuffer()) {
     Napi::TypeError::New(env, "hwnd buffer expected").ThrowAsJavaScriptException();
   }
-  changeTheme(info[0].As<Napi::Buffer<void*>>(), false);
+  changeTheme(info[0].As<Napi::Buffer<void*>>(), true);
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
