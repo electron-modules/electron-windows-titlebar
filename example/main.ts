@@ -3,9 +3,15 @@ import path from 'path';
 import WindowManager from 'electron-windows';
 import { app, ipcMain, BrowserWindow } from 'electron';
 import { waitPort } from 'detect-port';
+import winTitlebar from '..';
 
 const mainUrl = url.format({
   pathname: path.join(__dirname, 'renderer', 'index.html'),
+  protocol: 'file:',
+});
+
+const addonDemoUrl = url.format({
+  pathname: path.join(__dirname, 'renderer', 'addon-demo', 'index.html'),
   protocol: 'file:',
 });
 
@@ -24,6 +30,28 @@ ipcMain.on('window-action', ({ sender }, { action }) => {
     case 'close':
       win?.close();
       break;
+  }
+});
+
+ipcMain.handle('get-window-hwnd', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  return hwnd;
+});
+
+ipcMain.on('switch-dark-mode', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  if (hwnd) {
+    winTitlebar.switchDarkMode(hwnd);
+  }
+});
+
+ipcMain.on('switch-light-mode', ({ sender }) => {
+  const win = BrowserWindow.fromId(sender.id);
+  const hwnd = win?.getNativeWindowHandle();
+  if (hwnd) {
+    winTitlebar.switchLightMode(hwnd);
   }
 });
 
@@ -46,9 +74,27 @@ app.on('ready', async () => {
     },
   });
 
-  win.loadURL(mainUrl);
-  win.webContents.openDevTools({ mode: 'detach' });
-  win.once('ready-to-show', () => {
-    win.show();
+  // win.loadURL(mainUrl);
+  // win.webContents.openDevTools({ mode: 'detach' });
+  // win.once('ready-to-show', () => {
+  //   win.show();
+  // });
+
+  const addonWin = windowManager.create({
+    name: 'addon',
+    browserWindow: {
+      width: 1280,
+      height: 800,
+      title: 'addon demo',
+      webPreferences: {
+        preload: path.join(__dirname, 'renderer', 'preload.js'),
+      },
+    },
+  });
+
+  addonWin.loadURL(addonDemoUrl);
+  addonWin.webContents.openDevTools({ mode: 'detach' });
+  addonWin.once('ready-to-show', () => {
+    addonWin.show();
   });
 });

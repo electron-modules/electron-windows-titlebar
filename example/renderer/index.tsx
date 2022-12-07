@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactDOM from 'react-dom';
-import TitleBar from '../../src/TitleBar';
+import TitleBar from '../../src/web/TitleBar';
 import styles from './index.module.less';
 
 const onMinimize = () => {

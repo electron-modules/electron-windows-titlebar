@@ -1,12 +1,17 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "windows-style title bar component for Electron",
+  "gypfile": true,
   "scripts": {
     "dev": "concurrently npm:dev:*",
     "dev:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./example/main.ts",
     "dev:web": "cross-env NODE_ENV=development webpack-dev-server",
-    "build": "tsc && copyup 'src/**/*.less' lib/",
+    "build:web": "tsc && copyup 'src/**/*.less' lib/",
+    "build:debug": "node-gyp configure && node-gyp build --debug",
+    "build:release": "node-gyp configure && node-gyp build",
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean",
     "test": "jest",
     "lint": "eslint --fix --quiet --ext .js,.jsx,.ts,.tsx src example",
     "prepublishOnly": "npm run build",
@@ -15,7 +20,7 @@
   "keywords": [
     "electron",
     "windows",
-    "titlebar"
+    "title-bar"
   ],
   "files": [
     "src/**/*.ts",
@@ -28,6 +33,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/electron-modules/electron-windows-titlebar"
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "node-addon-api": "^3.0.0"
   },
   "devDependencies": {
     "@applint/spec": "^1.2.0",
@@ -51,6 +60,7 @@
     "json-loader": "^0.5.7",
     "less": "3.11.3",
     "less-loader": "^6.2.0",
+    "node-gyp": "^9.3.0",
     "prettier": "^2.6.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",

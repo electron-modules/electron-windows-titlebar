@@ -48,7 +48,18 @@ This project follows the git-contributor [spec](https://github.com/xudafeng/git-
 npm i electron-windows-titlebar --save-dev
 ```
 
-## APIs
+## Use Native Addons
+
+```javascript
+const windowTitleBar = require('electron-windows-titlebar');
+const win = BrowserWindow.fromId(sender.id);
+const hwnd = win?.getNativeWindowHandle();
+if (hwnd) {
+  windowTitleBar.switchDarkMode(hwnd);
+}
+```
+
+## Use Web APIs
 
 ```javascript
 // renderer process: import electron-windows-titlebar renderer
