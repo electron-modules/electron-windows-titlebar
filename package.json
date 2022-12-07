@@ -1,6 +1,6 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "windows-style title bar component for Electron",
   "gypfile": true,
   "scripts": {
