@@ -38,7 +38,9 @@ static void changeTheme(Napi::Buffer<void *> wndHandle, bool isDark) {
   );
   // step 3, redraw the current window
   // ref: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowpos
-  SetWindowPos(hwnd, 0, 0, 0, 0, 0, SWP_DRAWFRAME|SWP_NOACTIVATE|SWP_NOZORDER|SWP_NOMOVE|SWP_NOSIZE);
+  RECT rect;
+  GetWindowRect(hwnd, &rect);
+  SetWindowPos(hwnd, 0, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top + 1, SWP_DRAWFRAME|SWP_NOACTIVATE|SWP_NOZORDER);
 }
 
 void switchLightMode(const Napi::CallbackInfo& info) {
