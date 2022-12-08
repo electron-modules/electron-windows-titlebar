@@ -21,7 +21,16 @@
 
 > windows-style title bar component for Electron
 
-## Demo
+## Native Addon Demo
+
+<p align="center">
+  <img
+    src="./addon-demo.gif"
+    width="480"
+  />
+</p>
+
+## Web API Demo
 
 <p align="center">
   <img
@@ -30,14 +39,7 @@
   />
 </p>
 
-## Addon Demo
 
-<p align="center">
-  <img
-    src="./addon-demo.gif"
-    width="480"
-  />
-</p>
 
 <!-- GITCONTRIBUTOR_START -->
 
@@ -61,10 +63,15 @@ npm i electron-windows-titlebar --save-dev
 
 ```javascript
 const windowTitleBar = require('electron-windows-titlebar');
-const win = BrowserWindow.fromId(sender.id);
+const win = new BrowserWindow({
+  width: 800,
+  height: 600,
+  title: 'addon demo',
+})
 const hwnd = win?.getNativeWindowHandle();
+const setDark = true;
 if (hwnd) {
-  windowTitleBar.switchDarkMode(hwnd);
+  setDark ? windowTitleBar.switchDarkMode(hwnd) : windowTitleBar.switchLightMode(hwnd);
 }
 ```
 
@@ -76,6 +83,17 @@ import TitleBar from 'electron-windows-titlebar/TitleBar';
 
 <TitleBar
 />
+```
+
+## Run Demo
+
+```shell
+npm run dev:web
+```
+
+another shell
+```shell
+npm run dev:main
 ```
 
 ## License
