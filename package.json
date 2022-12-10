@@ -1,6 +1,6 @@
 {
   "name": "electron-windows-titlebar",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "windows-style title bar component for Electron",
   "main": "index.js",
   "scripts": {
