@@ -32,8 +32,3 @@ jobs:
       - name: Continuous integration
         run: |
           npm run lint
-
-      - name: Code coverage
-        uses: codecov/codecov-action@v3.0.0
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
