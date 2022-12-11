@@ -4,7 +4,6 @@
 
 [![NPM version][npm-image]][npm-url]
 [![CI][CI-image]][CI-url]
-[![Test coverage][codecov-image]][codecov-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
@@ -12,8 +11,6 @@
 [npm-url]: https://npmjs.org/package/electron-windows-titlebar
 [CI-image]: https://github.com/electron-modules/electron-windows-titlebar/actions/workflows/ci.yml/badge.svg
 [CI-url]: https://github.com/electron-modules/electron-windows-titlebar/actions/workflows/ci.yml
-[codecov-image]: https://img.shields.io/codecov/c/github/electron-modules/electron-windows-titlebar.svg?logo=codecov
-[codecov-url]: https://codecov.io/gh/electron-modules/electron-windows-titlebar
 [node-image]: https://img.shields.io/badge/node.js-%3E=_8-green.svg
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/electron-windows-titlebar.svg
