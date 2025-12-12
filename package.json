@@ -3,6 +3,10 @@
   "version": "1.0.7",
   "description": "windows-style title bar component for Electron",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./TitleBar": "./lib/web/TitleBar.js"
+  },
   "scripts": {
     "dev": "concurrently npm:dev:*",
     "dev:main": "cross-env NODE_ENV=development electron -r ts-node/register/transpile-only ./example/main.ts",
@@ -10,7 +14,7 @@
     "build:web": "tsc && copyup 'src/**/*.less' lib/",
     "build:debug": "node-gyp configure && node-gyp build --debug",
     "build:release": "node-gyp configure && node-gyp build",
-    "build": "node-gyp rebuild",
+    "build": "npm run build:web && node-gyp rebuild",
     "prepublishOnly": "npm run build",
     "clean": "node-gyp clean",
     "test": "jest",
@@ -32,6 +36,13 @@
     "lib/**/*.js",
     "lib/**/*.less"
   ],
+  "typesVersions": {
+    "*": {
+      "TitleBar": [
+        "./lib/web/TitleBar.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/electron-modules/electron-windows-titlebar"
