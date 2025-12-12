@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import styles from './TitleBar.module.less';
 
 interface TitleBarProps {
-  titleText: string;
-  titleTextColor: string;
-  titleTextFontSize: string;
-  titleBarHeight: string;
-  titleBarColor: string;
-  iconSize: string;
-  iconColor: string;
-  onMinimize: () => void;
-  onMaximize: () => void;
-  onUnMaximize: () => void;
-  onClose: () => void;
+  titleText?: string;
+  titleTextColor?: string;
+  titleTextFontSize?: string;
+  titleBarHeight?: string;
+  titleBarColor?: string;
+  iconSize?: string;
+  iconColor?: string;
+  onMinimize?: () => void;
+  onMaximize?: () => void;
+  onUnMaximize?: () => void;
+  onClose?: () => void;
 }
 
 const Icons = {
@@ -24,28 +24,36 @@ const Icons = {
 
 const TitleBar = (props: TitleBarProps) => {
   const {
-    titleText, titleTextColor, titleTextFontSize,
-    titleBarHeight, titleBarColor,
-    iconSize, iconColor,
-    onMinimize, onMaximize, onUnMaximize, onClose,
+    titleText = '', titleTextColor = '#fff', titleTextFontSize = '16px',
+    titleBarHeight = '32px', titleBarColor = '#3d3c3c',
+    iconSize = '12px', iconColor = '#fff',
+    onMinimize = () => {}, onMaximize = () => {}, onUnMaximize = () => {}, onClose = () => {},
   } = props;
-  function getIconItemStyle() {
-    return {
-      width: iconSize,
-      height: iconSize,
-    };
-  }
-  const iconItemStyle = getIconItemStyle();
   const [isMaximized, setIsMaximized] = useState(false);
 
-  const toggleMaximize = () => {
-    if (isMaximized) {
-      onUnMaximize();
-    } else {
-      onMaximize();
-    }
-    setIsMaximized(!isMaximized);
-  };
+  const iconItemStyle = useMemo(() => ({
+    width: iconSize,
+    height: iconSize,
+  }), [iconSize]);
+
+  const handleMinimize = useCallback(() => {
+    onMinimize();
+  }, [onMinimize]);
+
+  const handleToggleMaximize = useCallback(() => {
+    setIsMaximized((prev) => {
+      if (prev) {
+        onUnMaximize();
+      } else {
+        onMaximize();
+      }
+      return !prev;
+    });
+  }, [onMaximize, onUnMaximize]);
+
+  const handleClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
 
   return (
     <div
@@ -58,48 +66,34 @@ const TitleBar = (props: TitleBarProps) => {
         backgroundColor: titleBarColor,
       }}
     >
-      <div className={styles.draggaleArea}>
+      <div className={styles.draggableArea}>
         {titleText}
       </div>
       <div className={styles.buttons} style={{ fill: iconColor }}>
         <div
           className={styles.buttonItem}
           style={iconItemStyle}
-          onClick={() => onMinimize()}
+          onClick={handleMinimize}
         >
           {Icons.minimize}
         </div>
         <div
           className={styles.buttonItem}
           style={iconItemStyle}
-          onClick={() => toggleMaximize()}
+          onClick={handleToggleMaximize}
         >
           {isMaximized ? Icons.restore : Icons.maximize}
         </div>
         <div
           className={styles.buttonItem}
           style={iconItemStyle}
-          onClick={() => onClose()}
+          onClick={handleClose}
         >
           {Icons.close}
         </div>
       </div>
     </div>
   );
-};
-
-TitleBar.defaultProps = {
-  titleText: '',
-  titleTextColor: '#fff',
-  titleTextFontSize: '16px',
-  titleBarHeight: '32px',
-  titleBarColor: '#3d3c3c',
-  iconSize: '12px',
-  iconColor: '#fff',
-  onMinimize() {},
-  onMaximize() {},
-  onUnMaximize() {},
-  onClose() {},
 };
 
 export default TitleBar;
